@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Matcher.fs" />
+    <Compile Include="Combinators.fs" />
+    <Compile Include="ScanRat.fs" />
+  </ItemGroup>
+</Project>

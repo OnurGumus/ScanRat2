@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="TestGrammars.fs" />
+    <Compile Include="PrimitiveTests.fs" />
+    <Compile Include="BuilderTests.fs" />
+    <Compile Include="CalculatorTests.fs" />
+    <Compile Include="ErrorHandlingTests.fs" />
+    <Compile Include="LogicalPerformanceTests.fs" />
+    <Compile Include="PerformanceTets.fs" />
+    <Compile Include="FSharpTests.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="*" />
+    <PackageReference Include="FsUnit" Version="*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*" />
+    <PackageReference Include="NUnit" Version="*" />
+    <PackageReference Include="NUnit.Analyzers" Version="*" />
+    <PackageReference Include="NUnit3TestAdapter" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScanRat\ScanRat.fsproj" />
+  </ItemGroup>
+</Project>

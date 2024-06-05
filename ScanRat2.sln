@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ScanRat", "ScanRat\ScanRat.fsproj", "{1C878E29-DCEF-47FA-BD89-177D9ABC931F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ScanRat.Test", "ScanRat.Test\ScanRat.Test.fsproj", "{50A05771-01F1-4475-9A42-7986CDE26464}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C878E29-DCEF-47FA-BD89-177D9ABC931F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C878E29-DCEF-47FA-BD89-177D9ABC931F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C878E29-DCEF-47FA-BD89-177D9ABC931F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C878E29-DCEF-47FA-BD89-177D9ABC931F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50A05771-01F1-4475-9A42-7986CDE26464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50A05771-01F1-4475-9A42-7986CDE26464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50A05771-01F1-4475-9A42-7986CDE26464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50A05771-01F1-4475-9A42-7986CDE26464}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
