@@ -44,7 +44,5 @@ let precedenceCalc input =
 
 
 describe "my tests" <| fun _ ->
-    it "calls App.randomFeature() successfully" <| fun () ->
-     [1;2;3] |> Seq.sum = 6 |> equal true
     it "simple calc" <| fun () ->
-     simpleCalc "13"  = 13 |> equal true
+     precedenceCalc "3-2/2*5+3*8+1" |> equal 23
