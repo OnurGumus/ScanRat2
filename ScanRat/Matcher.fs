@@ -17,8 +17,8 @@ open System.Collections.Generic
 type internal Dictionary<'k, 'v> with
     member inline internal this.TryFind key =
         match this.TryGetValue key with
-        | (true, v) -> Some v
-        | (false, _) -> None
+        | (true, v) -> ValueSome v
+        | (false, _) -> ValueNone
 
 [<Struct>]
 type ParseSuccess<'v> = {
@@ -151,24 +151,24 @@ let rec internal memoCall (context: 'c :> IParseContext) (name: string) (product
     let expansion = { Key = key; Num = 0 }
 
     match tryGetMemo memo expansion index with
-    | Some result ->
+    | ValueSome result ->
         memo.Stats.TrackMemo()
         result
     | _ ->
 
     match tryGetLRRecord memo expansion index with
-    | Some record ->
+    | ValueSome record ->
         record.LRDetected <- true
 
         let involved = memo.CallStack |> Seq.takeWhile(fun lr -> lr.Expansion.Key <> expansion.Key) |> Seq.map(fun lr -> lr.Expansion.Key)
         record.Involved.UnionWith involved
 
         match tryGetMemo memo record.Expansion index with
-        | None -> raise (MatcherException({ Index = index; Message = "Problem with expansion" }))
-        | Some result ->
+        | ValueNone -> raise (MatcherException({ Index = index; Message = "Problem with expansion" }))
+        | ValueSome result ->
             memo.Stats.TrackMemoLR()
             result
-    | None ->
+    | ValueNone ->
 
     // no lr information
 
@@ -224,32 +224,32 @@ let rec internal memoCall (context: 'c :> IParseContext) (name: string) (product
     result
 
 
-and internal tryGetMemo memo expansion index : (IItem ValueOption option) =
+and internal tryGetMemo memo expansion index : (IItem ValueOption ValueOption) =
     match memo.Table.TryFind expansion.Key with
-    | None -> None
-    | Some expansionDict ->
+    | ValueNone -> ValueNone
+    | ValueSome expansionDict ->
     match expansionDict.TryFind expansion.Num with
-    | None -> None
-    | Some ruleDict -> ruleDict.TryFind index
+    | ValueNone -> ValueNone
+    | ValueSome ruleDict -> ruleDict.TryFind index
 
-and internal tryGetLRRecord memo expansion index =
+and internal tryGetLRRecord memo expansion index : ValueOption<_>=
     match memo.Recursions.TryFind expansion.Key with
-    | None -> None
-    | Some recordDict -> recordDict.TryFind index
+    | ValueNone -> ValueNone
+    | ValueSome recordDict -> recordDict.TryFind index
 
 and internal memoize memo expansion index (item : IItem ValueOption) =
     let expansionDict =
         match memo.Table.TryFind expansion.Key with
-        | Some expansionDict -> expansionDict
-        | None ->
+        | ValueSome expansionDict -> expansionDict
+        | ValueNone ->
         let dict = new ExpansionTable()
         memo.Table.Add(expansion.Key, dict)
         dict
 
     let ruleDict =
         match expansionDict.TryFind expansion.Num with
-        | Some ruleDict -> ruleDict
-        | None ->
+        | ValueSome ruleDict -> ruleDict
+        | ValueNone ->
         let ruleDict = new RuleTable()
         expansionDict.Add(expansion.Num, ruleDict)
         ruleDict
@@ -259,8 +259,8 @@ and internal memoize memo expansion index (item : IItem ValueOption) =
 and internal startLRRecord memo expansion index record =
     let recordDict =
         match memo.Recursions.TryFind expansion.Key with
-        | Some recordDict -> recordDict
-        | None ->
+        | ValueSome recordDict -> recordDict
+        | ValueNone ->
         let rdict = new RecordTable()
         memo.Recursions.Add(expansion.Key, rdict)
         rdict
@@ -269,8 +269,8 @@ and internal startLRRecord memo expansion index record =
 
 and internal forgetLRRecord memo expansion index =
     match memo.Recursions.TryFind expansion.Key with
-    | Some recordDict -> recordDict.Remove index |> ignore
-    | None -> ()
+    | ValueSome recordDict -> recordDict.Remove index |> ignore
+    | ValueNone -> ()
 
 and internal addError memo pos error =
     if pos > memo.LastErrorPos then

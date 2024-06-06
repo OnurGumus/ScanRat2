@@ -7,7 +7,6 @@ open ScanRat.ScanRat
 let inline equal (expected: 'T) (actual: 'T): unit =
     Testing.Assert.AreEqual(expected, actual)
 
-let calculator = new ScanRat.Tests.Calculator.CalculatorTests()
 
 let [<Global>] describe (name: string) (f: unit->unit) = jsNative
 let [<Global>] it (msg: string) (f: unit->unit) = jsNative
