@@ -14,7 +14,6 @@
     <Compile Include="LogicalPerformanceTests.fs" />
     <Compile Include="PerformanceTets.fs" />
     <Compile Include="FSharpTests.fs" />
-    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="*" />

@@ -7,6 +7,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ScanRat", "ScanRat\ScanRat.
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ScanRat.Test", "ScanRat.Test\ScanRat.Test.fsproj", "{50A05771-01F1-4475-9A42-7986CDE26464}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ScanRat.Fable.Test", "ScanRat.Fable.Test\ScanRat.Fable.Test.fsproj", "{B9440177-5D5A-41AE-9046-C5578211C309}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{50A05771-01F1-4475-9A42-7986CDE26464}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50A05771-01F1-4475-9A42-7986CDE26464}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50A05771-01F1-4475-9A42-7986CDE26464}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9440177-5D5A-41AE-9046-C5578211C309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9440177-5D5A-41AE-9046-C5578211C309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9440177-5D5A-41AE-9046-C5578211C309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9440177-5D5A-41AE-9046-C5578211C309}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

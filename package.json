@@ -1,0 +1,27 @@
+{
+  "name": "scanrat2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+     "test": "node --experimental-modules ./node_modules/.bin/mocha ./ScanRat.Fable.Test/build/Tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OnurGumus/ScanRat2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OnurGumus/ScanRat2/issues"
+  },
+  "homepage": "https://github.com/OnurGumus/ScanRat2#readme",
+  "dependencies": {
+    "mocha": "^10.4.0"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25"
+  }
+}
