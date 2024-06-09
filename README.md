@@ -2,7 +2,7 @@
 
 # ScanRat2 - PEG Parser Combinators for F# with support for Left Recursion and Memoization
 
-[![Nuget](https://img.shields.io/nuget/v/ScanRat2)](https://www.nuget.org/packages/ScanRat2/2)
+[![Nuget](https://img.shields.io/nuget/v/ScanRat2)](https://www.nuget.org/packages/ScanRat2)
 ScanRat2 is a mashup of the IronMeta PackRat parsing algorithm, and the concepts of the [FParsec](http://www.quanttec.com/fparsec/) and [Sprache](https://github.com/sprache/sprache) projects.
 
 Note: ScanRat2 is a fork of ScanRat https://github.com/pragmatrix/ScanRat, with few minor modifications. The code slightly modernized and now is Fable compatible.
