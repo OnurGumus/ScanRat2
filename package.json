@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-     "test": "node --experimental-modules ./node_modules/.bin/mocha ./ScanRat.Fable.Test/build/Tests.js"
+    "build": "dotnet fable ScanRat.Fable.Test/ScanRat.Fable.Test.fsproj -o ScanRat.Fable.Test/build",
+    "test": "node --experimental-modules ./node_modules/.bin/mocha ./ScanRat.Fable.Test/build/Tests.js"
   },
   "repository": {
     "type": "git",

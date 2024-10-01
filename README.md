@@ -16,7 +16,6 @@ Note: ScanRat2 is a fork of ScanRat https://github.com/pragmatrix/ScanRat, with 
 
 and what's missing:
 
-- RegExp support
 - Source indices must be accessible inside the result generators (define an additional production operator?).
 
 ## Get Started
