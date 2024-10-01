@@ -245,7 +245,7 @@ let pRegex (pattern: string) (ignoreCase: bool) =
         else
             RegexOptions.None
     // The \G anchor ensures that the match starts exactly at the current position
-    let regex = Regex(@"" + pattern, options)
+    let regex = Regex(pattern, options)
 
     pMatch ("regex " + pattern) (fun str i ->
         let m = regex.Match(str, i)

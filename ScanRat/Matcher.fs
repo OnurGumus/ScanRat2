@@ -32,7 +32,7 @@ type ParseFailure = { Index: int }
 
 type IItem =
     abstract member Next : int
-    abstract member IsSuccess : bool
+    abstract member Success : bool
 
 type ParseResult<'v> =
     | Success of ParseSuccess<'v>
@@ -43,7 +43,7 @@ type ParseResult<'v> =
             match this with
             | Success ps -> ps.Next
             | _ -> failwith "no next"
-        member this.IsSuccess =
+        member this.Success =
             match this with
             | Success _ -> true
             | _ -> false
@@ -193,7 +193,7 @@ let rec internal memoCall (context: 'c :> IParseContext) (name: string) (product
         let pResult = production context :> IItem
         memo.Stats.TrackProduction()
 
-        let result = if pResult.IsSuccess then (ValueSome pResult) else ValueNone
+        let result = if pResult.Success then (ValueSome pResult) else ValueNone
         // do we need to keep trying the expansions?
 
         if record.LRDetected && result <> ValueNone && result.Value.Next > record.NextIndex then
