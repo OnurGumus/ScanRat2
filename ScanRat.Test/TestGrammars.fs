@@ -43,6 +43,34 @@ let precedenceCalcExpression =
 
     additive
 
+let precedenceCalcExpressionWithParenthesis =
+        let multiplicative = production "multiplicative"
+        let additive = production "additive"
+    
+        let number = digits --> Number
+        let parenthesis = ~~"(" +. additive .+ ~~")" --> id
+        let factor = parenthesis |- number
+    
+        let add = additive .+ ~~"+" + multiplicative --> Add
+        let sub = additive .+ ~~"-" + multiplicative --> Subtract
+    
+        let multiply = multiplicative .+ ~~"*" + factor --> Multiply
+        let divide = multiplicative .+ ~~"/" + factor --> Divide
+    
+        additive.rule
+            <- add
+            |- sub
+            |- multiplicative
+    
+        multiplicative.rule
+            <- multiply
+            |- divide
+            |- factor
+    
+        additive
+    
+
+
 (* grammars used in the documentation / README.md *)
 
 let twoDigitNumber = digit + digit --> fun (digit1, digit2) -> digit1 * 10 + digit2

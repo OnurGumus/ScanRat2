@@ -45,6 +45,8 @@ type CalculatorTests() =
 
         let precedenceCalc input =
             parse precedenceCalcExpression input |> computeFromResult
+        let precedenceCalcWithParanthesis input =
+            parse precedenceCalcExpressionWithParenthesis input |> computeFromResult
 
         [<Test>]
         member _.RegexTest() =
@@ -96,5 +98,9 @@ type CalculatorTests() =
         [<Test>]
         member _.PrecedenceCalc3() =
             precedenceCalc "3-2/2*5+3*8+1" |> should equal 23
+
+        [<Test>]
+        member _.PrecedenceCalcWITHPARAN() =
+            precedenceCalcWithParanthesis "3-2/2*5+3*(8+1)" |> should equal 25
 
     end
