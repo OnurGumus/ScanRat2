@@ -197,31 +197,25 @@ let pMatchBack i (p: Parser<'a>) : Parser<'a> =
 
 let private quote str = "\"" + str + "\""
 
-let pMatch (name: string) (f: string -> int -> int option) =
+/// Match input using a regular expression pattern.
+/// Accepts a `RegexOptions` parameter to specify the regex options.
+/// Compiles the regex for improved performance and caches the instance.
+let pRegex (pattern: string) (options: RegexOptions) =
+    // Include RegexOptions.Compiled for better performance
+    let combinedOptions = options ||| RegexOptions.Compiled
+    // Create the compiled regex once and reuse it
+    let regex = Regex(pattern, combinedOptions)
+    
     fun (c: ParserContext) ->
-
-        match f c.Text c.Index with
-        | None ->
-
-            let errorRecord =
-                { Key = name :> obj
-                  Expected = name
-                  CallStack = (c :> IParseContext).Memo.CallStack }
-
-            ScanRat.Matcher.addError ((c :> IParseContext).Memo) c.Index errorRecord
-            Failure { ParseFailure.Index = c.Index }
-        | Some r ->
-
-            if c.Index + r > c.Text.Length then
-                failwithf "matched %d characters, but there were only %d left" r (c.Text.Length - c.Index)
-
-            let matched = c.Text.Substring(c.Index, r)
-
+        match regex.Match(c.Text, c.Index) with
+        | m when m.Success && m.Index = c.Index ->
             Success
                 { ParseSuccess.Index = c.Index
-                  Next = c.Index + r
-                  Value = matched }
-    |> mkParser name
+                  Next = c.Index + m.Length
+                  Value = m.Value }
+        | _ ->
+            Failure { ParseFailure.Index = c.Index }
+    |> mkParser ("regex " + pattern)
 
 let pStr (str: string) : Parser<string> =
     fun (c: ParserContext) ->
@@ -235,23 +229,6 @@ let pStr (str: string) : Parser<string> =
             else
                 failure c.Index
     |> mkParser (quote str)
-
-/// Match input using a regular expression pattern.
-/// The `ignoreCase` parameter determines if the match is case-insensitive.
-let pRegex (pattern: string) (ignoreCase: bool) =
-    let options =
-        if ignoreCase then
-            RegexOptions.IgnoreCase
-        else
-            RegexOptions.None
-    // The \G anchor ensures that the match starts exactly at the current position
-    let regex = Regex(pattern, options)
-
-    pMatch ("regex " + pattern) (fun str i ->
-        let m = regex.Match(str, i)
-        if m.Success && m.Index = i then Some m.Length else None)
-
-
 
 let pOneOf (str: string) : Parser<char> =
     if str = "" then
@@ -286,6 +263,16 @@ let pSelectFirst p = pSelectIndex p (fun (x, y) -> x)
 // Define pSelectLast to select the second element of the tuple
 let pSelectLast p = pSelectIndex p (fun (x, y) -> y)
 
+let pMatch name (matcher: string -> int -> int option) : Parser<string> =
+    fun (c: ParserContext) ->
+        match matcher c.Text c.Index with
+        | None -> failure c.Index
+        | Some len ->
+            if len < 0 then
+                failwith "matcher must return non-negative length"
+            let str = c.Text.Substring(c.Index, len)
+            successL c.Index len str
+    |> mkParser name
 
 (* Define some fancy operators!!! *)
 

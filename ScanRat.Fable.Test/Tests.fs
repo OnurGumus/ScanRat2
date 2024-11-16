@@ -5,6 +5,7 @@ open Fable.Core.JsInterop
 open ScanRat.Tests.Grammars
 open ScanRat.ScanRat
 open ScanRat.Combinators
+open System.Text.RegularExpressions
 
 let inline equal (expected: 'T) (actual: 'T) : unit =
     Testing.Assert.AreEqual(expected, actual)
@@ -42,9 +43,9 @@ let simpleCalc input =
     parse exp input |> computeFromResult
 
 let regexFailTest () =
-    let digitParser = pRegex @"\d+" false
+    let digitParser = pRegex @"\d+" RegexOptions.IgnoreCase
 
-    let wordParser = pRegex @"[A-Za-z]+" true
+    let wordParser = pRegex @"[A-Za-z]+" RegexOptions.IgnoreCase
 
     let wordThenDigitParser =
         wordParser + digitParser --> fun (words, digits) -> (words, digits)
@@ -57,9 +58,9 @@ let regexFailTest () =
     | Failure f -> (f.Index)
 
 let regexTest () =
-    let digitParser = pRegex @"\d+" false
+    let digitParser = pRegex @"\d+" RegexOptions.None
 
-    let wordParser = pRegex @"[A-Za-z]+" true
+    let wordParser = pRegex @"[A-Za-z]+"  RegexOptions.IgnoreCase
 
     let wordThenDigitParser =
         wordParser + digitParser --> fun (words, digits) -> (words, digits)

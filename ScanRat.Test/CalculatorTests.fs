@@ -51,10 +51,10 @@ type CalculatorTests() =
         [<Test>]
         member _.RegexTest() =
             // Parser to match a sequence of one or more digits (case-sensitive)
-            let digitParser = pRegex @"\d+" false
+            let digitParser = pRegex @"\d+" RegexOptions.IgnoreCase
 
             // Parser to match a sequence of one or more letters (case-insensitive)
-            let wordParser = pRegex @"[A-Za-z]+" true
+            let wordParser = pRegex @"[A-Za-z]+" RegexOptions.IgnoreCase
             // Use the parser to parse an input string
 
             // Parser that matches digits followed by letters
